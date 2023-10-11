@@ -9,15 +9,17 @@ import useMenu from '../../../hooks/useMenu';
 import OrderTab from '../OrderTab/OrderTab';
 import { useParams } from 'react-router-dom';
 const Order = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+
   const [menu] = useMenu()
   const { category } = useParams()
-  console.log(category)
-  const drinks = menu.filter(pItem => pItem.category == 'drinks')
-  const dessert = menu.filter(pItem => pItem.category == 'dessert')
-  const pizza = menu.filter(pItem => pItem.category == 'pizza')
-  const salad = menu.filter(pItem => pItem.category == 'salad')
-  const soup = menu.filter(pItem => pItem.category == 'soup')
+  const categories = ['salad', 'pizza', 'soup', 'desserts', 'drink']
+  const initialIndex = categories.indexOf(category)
+  const [tabIndex, setTabIndex] = useState(initialIndex);
+  const drinks = menu.filter(pItem => pItem.category === 'drinks')
+  const dessert = menu.filter(pItem => pItem.category === 'dessert')
+  const pizza = menu.filter(pItem => pItem.category === 'pizza')
+  const salad = menu.filter(pItem => pItem.category === 'salad')
+  const soup = menu.filter(pItem => pItem.category === 'soup')
 
 
   return (

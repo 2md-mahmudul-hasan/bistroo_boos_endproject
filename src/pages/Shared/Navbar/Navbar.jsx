@@ -1,15 +1,19 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   const navItem = <>
     <li> <Link to='/'>Home</Link></li>
     <li> <Link to='/menu'>Menu</Link></li>
-    <li> <Link to='/order'>Order Now</Link></li>
+    <li> <Link to='/order/salad'>Order Now</Link></li>
 
   </>
   return (
     <>
+      <Helmet>
+        <title>order||bistroo-boss</title>
+      </Helmet>
       <div className="fixed max-w-screen-xl z-10 navbar p-4 m-auto bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
