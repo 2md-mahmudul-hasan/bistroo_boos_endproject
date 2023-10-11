@@ -3,14 +3,21 @@ import orderImg from '../../../assets/shop/banner2.jpg'
 import Cover from '../../Shared/Cover/Cover';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import FoodCard from '../../../components/FoodCard';
+
+import useMenu from '../../../hooks/useMenu';
+import OrderTab from '../OrderTab/OrderTab';
+import { useParams } from 'react-router-dom';
 const Order = () => {
   const [tabIndex, setTabIndex] = useState(0);
-
-  const offere = menu.filter(pItem => pItem.category == 'offered')
-  const desserts = menu.filter(pItem => pItem.category == 'dessert')
+  const [menu] = useMenu()
+  const { category } = useParams()
+  console.log(category)
+  const drinks = menu.filter(pItem => pItem.category == 'drinks')
+  const dessert = menu.filter(pItem => pItem.category == 'dessert')
   const pizza = menu.filter(pItem => pItem.category == 'pizza')
-  const salads = menu.filter(pItem => pItem.category == 'salad')
-  const soups = menu.filter(pItem => pItem.category == 'soup')
+  const salad = menu.filter(pItem => pItem.category == 'salad')
+  const soup = menu.filter(pItem => pItem.category == 'soup')
 
 
   return (
@@ -27,10 +34,23 @@ const Order = () => {
         </TabList>
 
         <TabPanel>
-          <h2>Any content 1</h2>
+          <OrderTab item={salad}></OrderTab>
         </TabPanel>
+
         <TabPanel>
-          <h2>Any content 2</h2>
+          <OrderTab item={pizza}></OrderTab>
+        </TabPanel>
+
+        <TabPanel>
+          <OrderTab item={soup}></OrderTab>
+        </TabPanel>
+
+        <TabPanel>
+          <OrderTab item={dessert}></OrderTab>
+        </TabPanel>
+
+        <TabPanel>
+          <OrderTab item={drinks}></OrderTab>
         </TabPanel>
       </Tabs>
     </div>

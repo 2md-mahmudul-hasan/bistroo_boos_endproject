@@ -1,19 +1,22 @@
-import React from 'react';
 
-const FoodCard = ({item}) => {
+
+const FoodCard = ({ item }) => {
   const { id, name, recipe, image, category, price } = item;
 
   return (
     <div>
       <div className="card w-96 bg-base-100 shadow-xl">
         <figure className="px-10 pt-10">
-          <img src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" className="rounded-xl" />
+          <img src={image} alt="Shoes" className="rounded-xl" />
+          <b>{id}</b>
         </figure>
         <div className="card-body items-center text-center">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
+          <h2 className="card-title">{name}</h2>
+          <h5 className="card-title">{category}</h5>
+          <p>I{recipe}</p>
+          <p>I{price}</p>
           <div className="card-actions">
-            <button className="btn btn-primary">Buy Now</button>
+            <button className="btn btn-primary"> Add to card </button>
           </div>
         </div>
       </div>
