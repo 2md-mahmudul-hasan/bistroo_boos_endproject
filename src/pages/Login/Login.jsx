@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../Providers/AuthProviders';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 const Login = () => {
   const { user,
     createUser,
@@ -19,6 +20,11 @@ const Login = () => {
     signIn(email, password)
       .then(result => {
         console.log(result.user)
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
       })
   }
 

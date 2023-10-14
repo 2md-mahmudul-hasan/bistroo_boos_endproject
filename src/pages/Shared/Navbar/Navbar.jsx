@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../../Providers/AuthProviders'
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext)
+  const handleLogOut = () => {
+    logOut()
+      .then(() => { })
+      .catch(error => {
+        console.log(error.message)
+      })
+  }
   const navItem = <>
     <li> <Link to='/'>Home</Link></li>
     <li> <Link to='/menu'>Menu</Link></li>
     <li> <Link to='/order/salad'>Order Now</Link></li>
-    <li> <Link to='/login'>Login here</Link></li>
+
     <li> <Link to='/signup'>Sign up here</Link></li>
+
 
   </>
   return (
@@ -34,7 +44,9 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {
+            user ? <button onClick={handleLogOut} className='btn-outline btn-ghost'>Logout</button> : <> <Link to='/login'>Login here</Link></>
+          }
         </div>
       </div>
     </>
