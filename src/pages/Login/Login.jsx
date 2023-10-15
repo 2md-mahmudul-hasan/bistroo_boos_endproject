@@ -1,9 +1,17 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../Providers/AuthProviders';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import Menu from '../Menu/Menu/Menu';
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate()
+
+  const from = location.state?.from?.pathname || "/";
+
+
+
   const { user,
     createUser,
     signIn,
@@ -18,13 +26,19 @@ const Login = () => {
     const password = form.password.value;
     console.log(email, password)
     signIn(email, password)
-      .then(result => {
-        console.log(result.user)
-        Swal.fire(
-          'Good job!',
-          'You clicked the button!',
-          'success'
-        )
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        Swal.fire({
+          title: 'Login successful',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        });
+        navigate(from, { replace: true })
       })
   }
 

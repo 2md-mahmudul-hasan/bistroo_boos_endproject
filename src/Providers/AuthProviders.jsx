@@ -22,20 +22,19 @@ const AuthProviders = ({ children }) => {
 
   const logOut = () => {
     return signOut(auth).then(() => {
-      // Sign-out successful.
-    })
+      setLoading(false)
+    }).catch((error) => {
+      // An error happened.
+    });
+
   }
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        setUser(currentUser)
-        setLoading(false)
-        // ...
-      } else {
-        // User is signed out
-        // ...
+        const uid = user.uid;
+        setUser(uid)
       }
       return () => {
         return unSubscribe();
