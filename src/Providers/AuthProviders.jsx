@@ -14,6 +14,7 @@ const AuthProviders = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password)
 
   }
+
   const signIn = (email, password) => {
     setLoading(true)
     return signInWithEmailAndPassword(auth, email, password)
@@ -21,21 +22,18 @@ const AuthProviders = ({ children }) => {
   }
 
   const logOut = () => {
-    return signOut(auth).then(() => {
-      setLoading(false)
-    }).catch((error) => {
-      // An error happened.
-    });
-
+    setLoading(true);
+    return signOut(auth)
   }
+
+
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        setUser(uid)
-      }
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+
+      setUser(currentUser)
+      console.log('currnt user', currentUser)
+      setLoading(false)
+
       return () => {
         return unSubscribe();
       }
@@ -49,6 +47,8 @@ const AuthProviders = ({ children }) => {
     loading
 
   }
+
+
   return (
     <AuthContext.Provider value={authInfo}>
       {children}
