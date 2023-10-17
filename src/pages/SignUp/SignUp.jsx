@@ -2,21 +2,37 @@
 
 import { useForm } from "react-hook-form"
 import React, { useContext, useEffect, useRef, useState } from 'react';
-
+import Swal from 'sweetalert2'
 import { AuthContext } from '../../Providers/AuthProviders';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 const SignUp = () => {
+  const navigate = useNavigate()
   const { user,
     createUser,
-    signIn,
-    logOut,
-    loading } = useContext(AuthContext)
+    profileUpdate
+  } = useContext(AuthContext)
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, reset } = useForm()
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then(result => {
-        console.log(result.user.email)
+        const signUpUser = result.user;
+        console.log(signUpUser)
+
+        profileUpdate(data.name, data.photoUrl)
+      })
+      .then(() => {
+
+
+        Swal.fire(
+          "form reset successfull"
+        )
+        navigate('/')
+      })
+    reset()
+      .catch((error) => {
+        console.log(error)
       })
   }
 
@@ -43,12 +59,20 @@ const SignUp = () => {
                 <label className="label">
                   <span className="label-text">Name</span>
                 </label>
-                <input type="text" defaultValue="mahmudul hasan" {...register("name", { required: true })} />    </div>
+                <input type="text" placeholder="name" {...register("name", { required: true })} className="input input-bordered" required />
+              </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
-                <input type="email" defaultValue="1@gamil.com" {...register("email", { required: true })} className="input input-bordered" required />
+                <input type="email" placeholder="email" {...register("email", { required: true })} className="input input-bordered" required />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo url</span>
+                </label>
+                <input type="text" placeholder="photoUrl" {...register("photoUrl", { required: true })} className="input input-bordered" required />
               </div>
               <div className="form-control">
                 <label className="label">
