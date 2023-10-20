@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../../Providers/AuthProviders'
-
+import { FaCartPlus } from 'react-icons/fa';
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext)
   const handleLogOut = () => {
@@ -16,6 +16,9 @@ const Navbar = () => {
     <li> <Link to='/'>Home</Link></li>
     <li> <Link to='/menu'>Menu</Link></li>
     <li> <Link to='/secret'>private</Link></li>
+    <li className="badge badge-secondary"> <Link to='/secret'>
+      <FaCartPlus />  +99
+    </Link></li>
     <li> <Link to='/order/salad'>Order Now</Link></li>
 
     <li> <Link to='/signup'>Sign up here</Link></li>

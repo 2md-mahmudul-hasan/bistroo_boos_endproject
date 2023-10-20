@@ -12,11 +12,9 @@ const Login = () => {
 
 
 
-  const { user,
-    createUser,
-    signIn,
-    logOut,
-    loading } = useContext(AuthContext)
+  const {
+    signIn
+  } = useContext(AuthContext)
   const [disabled, setLogindisabled] = useState(true)
   const captchaRef = useRef(null)
   const handleLogin = (e) => {
